@@ -1,0 +1,15 @@
+
+[Unit]
+Description=flask demo celery single-beat service
+After=network.target
+[Service]
+User=root
+Environment="FLASK_ENV=dev"
+Environment="SINGLE_BEAT_IDENTIFIER=celery-beat"
+Environment="SINGLE_BEAT_REDIS_SERVER=redis://127.0.0.1:6378"
+WorkingDirectory=/opt/flask_demo
+ExecStart=/bin/sh -c 'source /opt/venv/flask_demo/bin/activate && single-beat celery -A flask_demo.run.celery --workdir=/opt/flask_demo beat'
+LimitNOFILE=1024000
+Restart=always
+[Install]
+WantedBy=multi-user.target

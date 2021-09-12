@@ -1,0 +1,12 @@
+[Unit]
+Description=flask demo celery worker service
+After=network.target
+[Service]
+User=root
+Environment="FLASK_DEMO=dev"
+WorkingDirectory=/opt/flask_demo
+ExecStart=/bin/sh -c 'source /opt/venv/flask_demo/bin/activate && celery -A task.celery worker --logfile=/data/flask_demo/logs/task/flask-demo.celery.worker.log --pidfile=/var/run/flask-demo.celery.worker.pid'
+LimitNOFILE=1024000
+Restart=always
+[Install]
+WantedBy=multi-user.target
