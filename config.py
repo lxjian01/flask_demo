@@ -13,10 +13,10 @@ class BaseConfig:
     THREAD_POOL_EXECUTOR_MAX_WORKER = 60  # max thread pool number
 
     # 日志文件
-    LOG_DIR = "/data/logs/flask-demo"
-    LOG_FILE_WEB = "web.log"
-    LOG_FILE_CELERY = "celery.log"
-    LOG_FILE_CELERY_BEAT = "celery.beat.log"
+    LOG_DIR = "/var/logs"
+    LOG_FILE_WEB = "flask-demo.web.log"
+    LOG_FILE_CELERY = "flask-demo.celery.log"
+    LOG_FILE_CELERY_BEAT = "flask-demo.celery.beat.log"
 
     # SQLALCHEMY
     SQLALCHEMY_POOL_SIZE = 20  # 数据库连接池的大小

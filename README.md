@@ -1,6 +1,6 @@
 ## python版本
-python 3.6.4
-runserver --host=0.0.0.0 --port=8003
+python 3.8.2
+runserver --host=0.0.0.0 --port=8000
 
 ## VirutalEnv
 pip install virtualenv  

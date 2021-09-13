@@ -10,18 +10,19 @@ from flask_sqlalchemy import SQLAlchemy
 import logging.config
 from app.utils.log import LogHandler
 from celery import Celery
+
 # 创建db
 db = SQLAlchemy()
 
-
+# 序列化sqlalchemy model
 def to_dict(self):
     return {c.name: getattr(self, c.name, None) for c in self.__table__.columns}
-
-
 db.Model.to_dict = to_dict
 
 log = None
 logCelery = None
+
+# 线程池执行器
 threadPoolExecutor = None
 
 
@@ -34,9 +35,13 @@ def create_app(config):
 
     global log, logCelery, threadPoolExecutor
 
+    # 创建app
     app = Flask(__name__, instance_relative_config=True)
+    # 载入配置文件
     app.config.from_object(config)
+    # 允许跨域
     CORS(app)
+    # 初始化db
     db.init_app(app)
 
     # init log

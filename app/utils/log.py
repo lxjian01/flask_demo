@@ -102,7 +102,7 @@ class LogHandler:
         log_dir = app.config["LOG_DIR"]
         # 如果不存在定义的日志目录就创建一个
         if not os.path.isdir(log_dir):
-            os.makedirs(log_dir, 755)
+            os.makedirs(log_dir, mode=0o755)
 
         # init web log
         log_file_web = app.config["LOG_FILE_WEB"]
