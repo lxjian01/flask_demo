@@ -68,6 +68,10 @@ def create_app(config):
         except Exception as ex:
             print(ex)
 
+    # 注册蓝图
+    from app.urls import register_app
+    register_app(app)
+
     return app
 
 

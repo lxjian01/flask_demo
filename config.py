@@ -41,8 +41,8 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = True
 
     # mysql config
-    MYSQL_CONFIG = {"host": "127.0.0.1", "port": 3904,
-                    "db": "portal", "user": "root", "passwd": "123456"}
+    MYSQL_CONFIG = {"host": "127.0.0.1", "port": 3306,
+                    "db": "kcdb", "user": "root", "passwd": "123456"}
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{user}:{passwd}@{host}:{port}/{db}'.format(**MYSQL_CONFIG)
 
     # Celery配置
@@ -56,8 +56,6 @@ class TestingConfig(BaseConfig):
 
 class ProductionConfig(BaseConfig):
     DEBUG = False
-
-
 
 
 config = {
