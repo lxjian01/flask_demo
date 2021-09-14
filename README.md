@@ -17,3 +17,6 @@ mkdir /opt/venv
 
 ## linux设置运行环境
 export FLASK_ENV="dev"
+
+## 运行celery
+celery -A run.celery worker -l INFO

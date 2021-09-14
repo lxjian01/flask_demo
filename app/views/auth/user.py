@@ -8,7 +8,23 @@ from app.models.auth import User
 from app.utils.response_helper import MyResponse, ResState
 from app.utils.sqlalchemy_helper import MySqlalchemy
 
+
 user = Blueprint('user', __name__, url_prefix="/apis")
+
+@user.route("/users", methods=['POST'])
+def add():
+    myRes = MyResponse()
+    try:
+        from app.tasks.tasks import add_task
+        result = add_task.delay(23, 42)
+        tt = result.wait()
+        data = {}
+        myRes.data = data
+        myRes.status = ResState.HTTP_SUCCESS
+        myRes.msg = "操作成功"
+    except Exception as ex:
+        log.error("get user list error by %v", ex)
+    return myRes.to_json()
 
 @user.route("/users/page", methods=['GET'])
 def page():

@@ -1,5 +1,5 @@
 FROM daocloud.io/python:3-onbuild
-WORKDIR /opt/flask-demo
+WORKDIR /opt/flask_demo
 
 RUN pip install --upgrade pip
 RUN pip list

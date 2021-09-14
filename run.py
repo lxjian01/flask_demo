@@ -1,5 +1,5 @@
 import os
-from config import config
+from app.config import config
 
 env = os.getenv("FLASK_DEMO", "default")
 
@@ -7,7 +7,7 @@ env = os.getenv("FLASK_DEMO", "default")
 from app import create_app
 app = create_app(config[env])
 
-# make celery
+# create celery
 from app import make_celery
 celery = make_celery(app)
 

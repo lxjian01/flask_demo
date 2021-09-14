@@ -2,8 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from concurrent.futures import ThreadPoolExecutor
-
-
 from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
@@ -24,7 +22,6 @@ logCelery = None
 
 # 线程池执行器
 threadPoolExecutor = None
-
 
 def create_app(config):
     """
@@ -76,17 +73,19 @@ def create_app(config):
 
 
 def make_celery(app):
-    celery = Celery(
-        app.import_name,
-        backend=app.config['CELERY_RESULT_BACKEND'],
-        broker=app.config['CELERY_BROKER_URL']
-    )
-    celery.conf.update(app.config)
+    celery = Celery(app.import_name,
+                    backend=app.config['CELERY_RESULT_BACKEND'],
+                    broker=app.config['CELERY_BROKER_URL'],
+                    include=["app.tasks.tasks"])
 
-    class ContextTask(celery.Task):
+    celery.conf.update(app.config)
+    TaskBase = celery.Task
+    class ContextTask(TaskBase):
+        abstract = True
         def __call__(self, *args, **kwargs):
             with app.app_context():
-                return self.run(*args, **kwargs)
-
+                return TaskBase.__call__(self, *args, **kwargs)
     celery.Task = ContextTask
     return celery
+
+
